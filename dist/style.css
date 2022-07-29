@@ -1,0 +1,17 @@
+/* header section that contains the my team class */
+header {
+    background-image: linear-gradient(to right, #104ed3, #7f00d4);
+    padding: 10px
+  }
+   
+  /* Cards */
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    text-align: center;
+    font-family: arial;
+    justify-content: space-between;
+    display: flex;
+  }
+  
+  
