@@ -1,3 +1,6 @@
+const Manager = require('../lib/Manager');
+const Engineer = require('../lib/Engineer');
+const Intern = require('../lib/Intern');
 
 // create the Manager section card
 const generateManager = projectsArr => {
@@ -20,7 +23,7 @@ const generateManager = projectsArr => {
     `;
             })
             .join('')}
-    `;
+    `
 };
 
 // create the Engineer section
@@ -43,7 +46,7 @@ const generateEngineer = projectsArr => {
     `;
             })
             .join('')}
-`;
+`
 };
 
 // create the Intern section
@@ -66,10 +69,29 @@ const generateIntern = projectsArr => {
     `;
             })
             .join('')}
-`;
+`
 };
 
-// export function to generate entire page
+// function to select which employees to add to the team.
+// Using switch statement to select team members
+// calling the functions created above for populating the cards
+const employeeCards = (teams) => {
+    let cards = "";
+    teams.forEach(myTeam => {
+        switch (myTeam.getRole()) {
+            case 'Manager': cards += `${generateManager(teams)}`
+                break;
+            case 'Engineer': cards += `${generateEngineer(teams)}`
+                break;
+            case 'Intern': cards += `${generateIntern(teams)}`
+                break;
+        }
+    });
+    return cards;
+}
+
+
+// function to generate entire page
 const generatePage = myTeam => {
 
     return `
@@ -94,9 +116,7 @@ const generatePage = myTeam => {
     <h1>My Team</h1>
     </header>
       <main class="container fluid text-white">
-        ${generateManager(myTeam)}
-        ${generateEngineer(myTeam)}
-        ${generateIntern(myTeam)}
+        ${employeeCards(myTeam)}
       </main>
       <footer class="container text-center py-3">
         <h3 class="text-dark">&copy; ${new Date().getFullYear()} by Kenny</h3>
@@ -106,4 +126,4 @@ const generatePage = myTeam => {
     `;
 };
 
-module.exports = generatePage
+module.exports = generatePage;

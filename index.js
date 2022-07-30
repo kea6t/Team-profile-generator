@@ -211,18 +211,18 @@ const createTeamMember = () => {
         .prompt(promptCreateTeam)
         .then((response) => {
             console.log(response.confirmAddTeam);
-            if (response.confirmAddTeam === 'Engineer') {
+            if (response.confirmAddTeam[0] === 'Engineer') {
                 createEngineer();
-            } else if (response.confirmAddTeam === 'Intern') {
+            } else if (response.confirmAddTeam[0] === 'Intern') {
                 createIntern();
-            } else if (response.confirmAddTeam === 'I am done building my team!') {
+            } else if (response.confirmAddTeam[0] === 'I am done building my team!') {
                 createSite(myTeam);
             }
         });
 };
 
 
-const createSite = myTeam => {
+const createSite = () => {
     generatePage(myTeam)
     .then((pageHtml) => {
         return writeFile(pageHtml)
