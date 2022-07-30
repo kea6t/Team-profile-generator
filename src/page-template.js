@@ -72,24 +72,6 @@ const generateIntern = projectsArr => {
 `
 };
 
-// function to select which employees to add to the team.
-// Using switch statement to select team members
-// calling the functions created above for populating the cards
-const employeeCards = (teams) => {
-    let cards = "";
-    teams.forEach(myTeam => {
-        switch (myTeam.getRole()) {
-            case 'Manager': cards += `${generateManager(teams)}`
-                break;
-            case 'Engineer': cards += `${generateEngineer(teams)}`
-                break;
-            case 'Intern': cards += `${generateIntern(teams)}`
-                break;
-        }
-    });
-    return cards;
-}
-
 
 // function to generate entire page
 const generatePage = myTeam => {
@@ -116,7 +98,9 @@ const generatePage = myTeam => {
     <h1>My Team</h1>
     </header>
       <main class="container fluid text-white">
-        ${employeeCards(myTeam)}
+        ${generateManager(myTeam)}
+        ${generateEngineer(myTeam)}
+        ${generateIntern(myTeam)}
       </main>
       <footer class="container text-center py-3">
         <h3 class="text-dark">&copy; ${new Date().getFullYear()} by Kenny</h3>
