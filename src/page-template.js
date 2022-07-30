@@ -1,74 +1,76 @@
-// create the Manager section
-const generateManager = () => {
+
+// create the Manager section card
+const generateManager = projectsArr => {
+
     return `  
     <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-    <div class="card-header">${ data.getName() } fas fa-mug-hot</div>
+    <!-- Creating separate arrays for each team member and filtering them out.  --> 
+    <!-- Deconstructing Manager  -->
+    ${projectsArr
+            .filter(({ manager }) => manager)
+            .map(({ name, email, id, office }) => {
+                return `
+    <div class="card-header">${name} fas fa-mug-hot</div>
   <ul class="list-group list-group-flush">
-      <li class="list-group-item">Office number: ${data.getOfficeNumber()}</li>
-      <li class="list-group-item">ID: ${data.getId()}</li>
-      <li class="list-group-item">Email: <a href="mailto:${data.getEmail()}" class="card-link">${data.getEmail()}</a></li>
+      <li class="list-group-item">Office number: ${office}</li>
+      <li class="list-group-item">ID: ${id}</li>
+      <li class="list-group-item">Email: <a href="mailto:${email}" class="card-link">${email}</a></li>
     </ul>
   </div>
-  div class="card-body">
-      <a href="#${email}" class="card-link">Email</a>
-    </div>
+    `;
+            })
+            .join('')}
     `;
 };
 
 // create the Engineer section
-const generateEngineer = () => {
+const generateEngineer = projectsArr => {
     return `
     <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-    <div class="card-header">${ data.getName() } fas fa-glasses</div>
+    <!-- Creating separate arrays for each team member and filtering them out.  --> 
+    <!-- Deconstructing Engineer  -->
+    ${projectsArr
+            .filter(({ manager }) => manager)
+            .map(({ name, email, id, github }) => {
+                return `
+    <div class="card-header">${name} fas fa-glasses</div>
   <ul class="list-group list-group-flush">
-      <li class="list-group-item">Github: ${data.getGithub()}</li>
-      <li class="list-group-item">ID: ${data.getId()}</li>
-      <li class="list-group-item">Email: <a href="mailto:${data.getEmail()}" class="card-link">${data.getEmail()}</a></li>
+      <li class="list-group-item">Github: ${github}</li>
+      <li class="list-group-item">ID: ${id}</li>
+      <li class="list-group-item">Email: <a href="mailto:${email}" class="card-link">${email}</a></li>
     </ul>
   </div>
-  div class="card-body">
-      <a href="#${email}" class="card-link">Email</a>
-    </div>
     `;
+            })
+            .join('')}
+`;
 };
 
 // create the Intern section
-const generateIntern = () => {
+const generateIntern = projectsArr => {
     return `
     <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-    <div class="card-header">${ data.name } fa fa-graduation-cap</div>
+    <!-- Creating separate arrays for each team member and filtering them out.  --> 
+    <!-- Deconstructing Intern  -->
+    ${projectsArr
+            .filter(({ manager }) => manager)
+            .map(({ name, email, id, school }) => {
+                return ` 
+    <div class="card-header">${name} fa fa-graduation-cap</div>
   <ul class="list-group list-group-flush">
       <li class="list-group-item">School: ${school}</li>
       <li class="list-group-item">ID: ${id}</li>
-      <li class="list-group-item">Email: <a href="mailto:${data.getEmail()}" class="card-link">${data.getEmail()}</a></li>
+      <li class="list-group-item">Email: <a href="mailto:${email}" class="card-link">${email}</a></li>
     </ul>
   </div>
-  div class="card-body">
-      <a href="#${email}" class="card-link">Email</a>
-    </div>
     `;
+            })
+            .join('')}
+`;
 };
 
-// function to select which employees to add to the team.
-// Using switch statement to select team members
-// calling the functions created above for populating the cards
-const employeeCards = (teams) => {
-    let card = "";
-    teams.forEach(data => {
-        switch (data.getRole()) {
-            case 'Manager': card += `${generateManager()}`
-            break;
-            case 'Engineer': card += `${generateEngineer()}`
-            break;
-            case 'Intern': card += `${generateIntern()}`
-            break
-        }
-    });
-    return card;
-}
-
 // export function to generate entire page
-const generatePage = (teams) => {
+const generatePage = myTeam => {
 
     return `
     <!DOCTYPE html>
@@ -92,7 +94,9 @@ const generatePage = (teams) => {
     <h1>My Team</h1>
     </header>
       <main class="container fluid text-white">
-        ${employeeCards(teams)}
+        ${generateManager(myTeam)}
+        ${generateEngineer(myTeam)}
+        ${generateIntern(myTeam)}
       </main>
       <footer class="container text-center py-3">
         <h3 class="text-dark">&copy; ${new Date().getFullYear()} by Kenny</h3>

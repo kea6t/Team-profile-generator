@@ -23,10 +23,10 @@ const promptManager = [
     },
     {
         type: 'input',
-        name: 'eid',
+        name: 'id',
         message: "Enter Team Manager's Id (Required)",
-        validate: eidInput => {
-            if (eidInput) {
+        validate: idInput => {
+            if (idInput) {
                 return true;
             } else {
                 console.log("Please enter your team manager's Id!");
@@ -80,10 +80,10 @@ const promptEngineer = [
     },
     {
         type: 'input',
-        name: 'eid',
+        name: 'id',
         message: "Enter engineer's Id (Required)",
-        validate: eidInput => {
-            if (eidInput) {
+        validate: idInput => {
+            if (idInput) {
                 return true;
             } else {
                 console.log("Please enter your engineer's Id!");
@@ -122,10 +122,10 @@ const createEngineer = () => {
     inquirer
         .prompt(promptEngineer)
         .then((engineerResponse) => {
-            const engineer = new Engineer(engineerResponse.name, engineerResponse.eid, engineerResponse.email, engineerResponse.github)
-            myTeam.push(engineer)
-            createSite();
-        })
+            const engineer = new Engineer(engineerResponse.name, engineerResponse.id, engineerResponse.email, engineerResponse.github);
+            myTeam.push(engineer);
+            createTeamMember();
+        });
 }
 
 
@@ -146,10 +146,10 @@ const promptIntern = [
     },
     {
         type: 'input',
-        name: 'eid',
+        name: 'id',
         message: "Enter Intern's Id (Required)",
-        validate: eidInput => {
-            if (eidInput) {
+        validate: idInput => {
+            if (idInput) {
                 return true;
             } else {
                 console.log("Please enter your intern's Id!");
@@ -189,10 +189,10 @@ const createIntern = () => {
     inquirer
         .prompt(promptIntern)
         .then((internResponse) => {
-            const intern = new Intern(internResponse.name, internResponse.eid, internResponse.email, internResponse.school)
-            myTeam.push(intern)
-            createSite();
-        })
+            const intern = new Intern(internResponse.name, internResponse.id, internResponse.email, internResponse.school);
+            myTeam.push(intern);
+            createTeamMember();
+        });
 }
 
 
@@ -201,30 +201,29 @@ const promptCreateTeam = [
         type: 'checkbox',
         name: 'confirmAddTeam',
         message: 'Which team member would you like to start a team with?',
-        choices: ['Engineer', 'Intern', 'None'],
+        choices: ['Engineer', 'Intern', 'I am done building my team!'],
 
     }
 ]
 
-const createTeamData = () => {
+const createTeamMember = () => {
     inquirer
         .prompt(promptCreateTeam)
         .then((response) => {
-            if (response.confirmAddTeam[0] === 'Engineer') {
-                return createEngineer();
-            } else if (response.confirmAddTeam[1] === 'Intern') {
-                return createIntern();
-            } else if (response.confirmAddTeam[2] === 'None') {
-                return createSite();
+            console.log(response.confirmAddTeam);
+            if (response.confirmAddTeam === 'Engineer') {
+                createEngineer();
+            } else if (response.confirmAddTeam === 'Intern') {
+                createIntern();
+            } else if (response.confirmAddTeam === 'I am done building my team!') {
+                createSite(myTeam);
             }
-        })
-
+        });
 };
 
 
-const createSite = () => {
-    generatePage()
-    .then(createTeamData())
+const createSite = myTeam => {
+    generatePage(myTeam)
     .then((pageHtml) => {
         return writeFile(pageHtml)
     })
@@ -246,10 +245,10 @@ const init = () => {
     inquirer
         .prompt(promptManager)
         .then((managerResponse) => {
-            const manager = new Manager(managerResponse.name, managerResponse.eid, managerResponse.email, managerResponse.office)
-            myTeam.push(manager)
-            createTeamData();
-        })
+            const manager = new Manager(managerResponse.name, managerResponse.id, managerResponse.email, managerResponse.office);
+            myTeam.push(manager);
+            createTeamMember();
+        });
 };
 
 // Function call to initialize app
