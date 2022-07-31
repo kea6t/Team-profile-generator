@@ -216,22 +216,36 @@ const createTeamMember = () => {
             } else if (response.confirmAddTeam[0] === 'Intern') {
                 createIntern();
             } else if (response.confirmAddTeam[0] === 'I am done building my team!') {
-                return;
+                createSite();
             }
         })
 
 
 };
 
+// function to create the site
+const createSite = () => {
+    inquirer
+    .prompt(createTeamMember)
+    .then((myTeam) => {
+        return generatePage(myTeam)
+    })
+    .then((pageHtml) => {
+        return writeFile(pageHtml)
+    })
 
-// const createSite = () => {
-//     inquirer
-//     .prompt(createTeamMember)
-//     .then((confirmAddTeam) => {
-//         return generatePage(myTeam);
-//     }) 
+    .then(writeFileResponse => {
+        console.log(writeFileResponse);
+        return copyFile();
+    })
+    .then(copyFileResponse => {
+        console.log(copyFileResponse);
+    })
+    .catch(err => {
+        console.log(err);
+    });
+}
 
-// }
 
 // 
 const init = () => {
@@ -240,25 +254,8 @@ const init = () => {
         .then((managerResponse) => {
             const manager = new Manager(managerResponse.name, managerResponse.id, managerResponse.email, managerResponse.office);
             myTeam.push(manager);
+            createTeamMember();
         })
-        .then(createTeamMember)
-        .then((myTeam) => {
-            return generatePage(myTeam)
-        })
-        .then((pageHtml) => {
-            return writeFile(pageHtml)
-        })
-
-        .then(writeFileResponse => {
-            console.log(writeFileResponse);
-            return copyFile();
-        })
-        .then(copyFileResponse => {
-            console.log(copyFileResponse);
-        })
-        .catch(err => {
-            console.log(err);
-        });
 };
 
 // Function call to initialize app

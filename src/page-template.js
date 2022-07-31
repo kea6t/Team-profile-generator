@@ -1,15 +1,11 @@
-const Manager = require('../lib/Manager');
-const Engineer = require('../lib/Engineer');
-const Intern = require('../lib/Intern');
-
 // create the Manager section card
-const generateManager = projectsArr => {
+const generateManager = myTeam => {
 
     return `  
     <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
     <!-- Creating separate arrays for each team member and filtering them out.  --> 
     <!-- Deconstructing Manager  -->
-    ${projectsArr
+    ${myTeam
             .filter(({ manager }) => manager)
             .map(({ name, email, id, office }) => {
                 return `
@@ -27,12 +23,12 @@ const generateManager = projectsArr => {
 };
 
 // create the Engineer section
-const generateEngineer = projectsArr => {
+const generateEngineer = myTeam => {
     return `
     <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
     <!-- Creating separate arrays for each team member and filtering them out.  --> 
     <!-- Deconstructing Engineer  -->
-    ${projectsArr
+    ${myTeam
             .filter(({ manager }) => manager)
             .map(({ name, email, id, github }) => {
                 return `
@@ -50,12 +46,12 @@ const generateEngineer = projectsArr => {
 };
 
 // create the Intern section
-const generateIntern = projectsArr => {
+const generateIntern = myTeam => {
     return `
     <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
     <!-- Creating separate arrays for each team member and filtering them out.  --> 
     <!-- Deconstructing Intern  -->
-    ${projectsArr
+    ${myTeam
             .filter(({ manager }) => manager)
             .map(({ name, email, id, school }) => {
                 return ` 
@@ -72,9 +68,9 @@ const generateIntern = projectsArr => {
 `
 };
 
-
-// function to generate entire page
-const generatePage = myTeam => {
+// export function to generate entire page
+module.exports = templateData => {
+    const { manager, engineer, ...intern} = templateData
 
     return `
     <!DOCTYPE html>
@@ -98,9 +94,9 @@ const generatePage = myTeam => {
     <h1>My Team</h1>
     </header>
       <main class="container fluid text-white">
-        ${generateManager(myTeam)}
-        ${generateEngineer(myTeam)}
-        ${generateIntern(myTeam)}
+        ${generateManager(manager)}
+        ${generateEngineer(engineer)}
+        ${generateIntern(intern)}
       </main>
       <footer class="container text-center py-3">
         <h3 class="text-dark">&copy; ${new Date().getFullYear()} by Kenny</h3>
@@ -110,4 +106,4 @@ const generatePage = myTeam => {
     `;
 };
 
-module.exports = generatePage;
+
