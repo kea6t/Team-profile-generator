@@ -206,6 +206,7 @@ const promptCreateTeam = [
     }
 ]
 
+// function to create team members
 const createTeamMember = () => {
     inquirer
         .prompt(promptCreateTeam)
