@@ -1,6 +1,6 @@
 // create the Manager section card
 const generateManager = myTeam => {
-
+    console.log(myTeam);
     return `  
     <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
     <!-- Creating separate arrays for each team member and filtering them out.  --> 
@@ -70,8 +70,9 @@ const generateIntern = myTeam => {
 
 // export function to generate entire page
 module.exports = templateData => {
-    const { manager, engineer, ...intern} = templateData
-
+    const { manager, engineer, intern} = templateData
+    console.log(templateData);
+    console.log(manager);
     return `
     <!DOCTYPE html>
     <html lang="en">

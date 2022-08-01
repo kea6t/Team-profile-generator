@@ -198,7 +198,7 @@ const createIntern = () => {
 
 const promptCreateTeam = [
     {
-        type: 'checkbox',
+        type: 'list',
         name: 'confirmAddTeam',
         message: 'Which team member would you like to start a team with?',
         choices: ['Engineer', 'Intern', 'I am done building my team!'],
@@ -212,11 +212,12 @@ const createTeamMember = () => {
         .prompt(promptCreateTeam)
         .then((response) => {
             console.log(response.confirmAddTeam);
-            if (response.confirmAddTeam[0] === 'Engineer') {
+            if (response.confirmAddTeam === 'Engineer') {
                 createEngineer();
-            } else if (response.confirmAddTeam[0] === 'Intern') {
+            } else if (response.confirmAddTeam === 'Intern') {
                 createIntern();
-            } else if (response.confirmAddTeam[0] === 'I am done building my team!') {
+            } else if (response.confirmAddTeam === 'I am done building my team!') {
+                console.log('Hello');
                 createSite();
             }
         })
@@ -226,25 +227,27 @@ const createTeamMember = () => {
 
 // function to create the site
 const createSite = () => {
-    inquirer
-    .prompt(createTeamMember)
-    .then((myTeam) => {
-        return generatePage(myTeam)
-    })
-    .then((pageHtml) => {
-        return writeFile(pageHtml)
-    })
+    generatePage(myTeam);
+    console.log(generatePage(myTeam));
+    // inquirer
+    // .prompt(createTeamMember)
+    // .then((myTeam) => {
+    //     return generatePage(myTeam)
+    // })
+    // .then((pageHtml) => {
+    //     return writeFile(pageHtml)
+    // })
 
-    .then(writeFileResponse => {
-        console.log(writeFileResponse);
-        return copyFile();
-    })
-    .then(copyFileResponse => {
-        console.log(copyFileResponse);
-    })
-    .catch(err => {
-        console.log(err);
-    });
+    // .then(writeFileResponse => {
+    //     console.log(writeFileResponse);
+    //     return copyFile();
+    // })
+    // .then(copyFileResponse => {
+    //     console.log(copyFileResponse);
+    // })
+    // .catch(err => {
+    //     console.log(err);
+    // });
 }
 
 
