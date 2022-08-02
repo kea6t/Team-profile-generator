@@ -35,7 +35,7 @@ const generateEngineer = myTeam => {
                 return `
     <div class="card-header fas fa-glasses"> ${engineer.name} </div>
   <ul class="list-group list-group-flush">
-      <li class="list-group-item text-dark href='https://github.com/${engineer.github}'></a>">
+      <li class="list-group-item text-dark href="https://github.com/${engineer.github}">
       Github: ${engineer.github}</li>
       <li class="list-group-item text-dark">ID: ${engineer.id}</li>
       <li class="list-group-item text-dark">Email: <a href="mailto:${engineer.email}" class="card-link">${engineer.email}</a></li>
