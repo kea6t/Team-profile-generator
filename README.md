@@ -3,7 +3,7 @@
 ## Description
 Using node.js to generate index.html files using data from user input
 ![Screen Shot](Screen Shot1.png)
-Here's a link to the recorded video: https://watch.screencastify.com/v/V0m2WEHNIa233a60NvSx
+Here's a link to the recorded video: https://watch.screencastify.com/v/0QksLNlMxRCcsqopgWhf
 
 ## Table of Contents
   - [Description](#description)
