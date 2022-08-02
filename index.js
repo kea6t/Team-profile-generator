@@ -227,28 +227,21 @@ const createTeamMember = () => {
 
 // function to create the site
 const createSite = () => {
-    generatePage(myTeam);
-    console.log(generatePage(myTeam));
-    // inquirer
-    // .prompt(createTeamMember)
-    // .then((myTeam) => {
-    //     return generatePage(myTeam)
-    // })
-    // .then((pageHtml) => {
-    //     return writeFile(pageHtml)
-    // })
+    const pageHtml = generatePage(myTeam);
+    writeFile(pageHtml)
+    .then(writeFileResponse => {
+        console.log(writeFileResponse);
+        return copyFile();
+    })
+    .then(copyFileResponse => {
+        console.log(copyFileResponse);
+    })
+    .catch(err => {
+        console.log(err);
+    });
+    console.log(generatePage(myTeam));    
+};
 
-    // .then(writeFileResponse => {
-    //     console.log(writeFileResponse);
-    //     return copyFile();
-    // })
-    // .then(copyFileResponse => {
-    //     console.log(copyFileResponse);
-    // })
-    // .catch(err => {
-    //     console.log(err);
-    // });
-}
 
 
 // 
